@@ -106,10 +106,11 @@ if err != nil {
    return
 }
 
-params := tracking51.DetectParams{
-    TrackingNumber: "",
+params := tracking51.CreateTrackingParams{
+   TrackingNumber: "",
+   CourierCode:    "usps",
 }
-result, err := cli.Detect(context.Background(), params)
+result, err := cli.CreateTracking(context.Background(), params)
 if err != nil {
    fmt.Println(err)
    return
