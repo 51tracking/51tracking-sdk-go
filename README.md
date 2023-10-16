@@ -122,7 +122,7 @@ Tracking number cannot be empty
 ## Examples
 
 ## Couriers
-##### Return a list of all supported couriers.
+##### 返回所有支持的快递公司列表
 https://api.51Tracking.com/v4/couriers/all
 ```go
 result, err := cli.GetAllCouriers(context.Background())
@@ -135,7 +135,7 @@ fmt.Println(result)
 ```
 
 ## Trackings
-##### Create a tracking.
+##### 单个物流单号实时添加且查询
 https://api.51Tracking.com/v4/trackings/create
 ```go
 params := tracking51.CreateTrackingParams{
@@ -152,28 +152,19 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Get tracking results of multiple trackings.
+##### 获取多个物流单号的查询结果
 https://api.51Tracking.com/v4/trackings/get
 ```go
-// Perform queries based on various conditions
-//params := tracking51.GetTrackingResultsParams{
-//	TrackingNumbers: "92612903029511573030094532",
-//	CourierCode:     "usps",
-//}
-//
-//params := tracking51.GetTrackingResultsParams{
-//	TrackingNumbers: "92612903029511573030094531,9400111899562539126562",
-//	CourierCode:     "usps",
-//}
 
 currentTime := time.Now()
 zeroTime := currentTime.UTC()
 layout := "2006-01-02T15:04:05-07:00"
 formattedTime := zeroTime.Format(layout)
 params := tracking51.GetTrackingResultsParams{
+  TrackingNumbers: "92612903029511573030094531,9400111899562539126562",
+  CourierCode:     "usps",
   CreatedDateMin: "2023-08-23T06:00:00+00:00",
   CreatedDateMax: formattedTime,
-}
 
 result, err := cli.GetTrackingResults(context.Background(), params)
 if err != nil {
@@ -184,7 +175,7 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Create multiple trackings (Max. 40 tracking numbers create in one call).
+##### 添加多个物流单号（一次调用最多创建 40 个物流单号）
 https://api.51Tracking.com/v4/trackings/batch
 ```go
 params := []tracking51.CreateTrackingParams{
@@ -207,7 +198,7 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Update a tracking by ID.
+##### 根据ID更新物流信息
 https://api.51Tracking.com/v4/trackings/update/{id}
 ```go
 params := tracking51.UpdateTrackingParams{
@@ -225,7 +216,7 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Delete a tracking by ID.
+##### 通过ID删除单号
 https://api.51Tracking.com/v4/trackings/delete/{id}
 ```go
 idString := "9a1d3844a50f3851e76e3ee347881588"
@@ -238,7 +229,7 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Retrack expired tracking by ID.
+##### 通过ID重新查询过期的单号
 https://api.51Tracking.com/v4/trackings/retrack/{id}
 ```go
 idString := "99ff2ce10105aeb8627ec0c03e1773bd"
@@ -251,7 +242,7 @@ if err != nil {
 fmt.Println(result)
 ```
 ## Air Waybill
-##### Create an air waybill.
+##### 查询航空运单的结果
 https://api.51Tracking.com/v4/awb
 ```go
 params := tracking51.AirWaybillParams{
