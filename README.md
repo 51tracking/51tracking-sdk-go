@@ -134,22 +134,6 @@ if err != nil {
 fmt.Println(result)
 ```
 
-##### Return a list of matched couriers based on submitted tracking number.
-https://api.51Tracking.com/v4/couriers/detect
-```go
-params := tracking51.DetectParams{
-  TrackingNumber: "92612903029511573030094531",
-}
-
-result, err := cli.Detect(context.Background(), params)
-if err != nil {
-  fmt.Println(err)
-  return
-}
-
-fmt.Println(result)
-```
-
 ## Trackings
 ##### Create a tracking.
 https://api.51Tracking.com/v4/trackings/create
