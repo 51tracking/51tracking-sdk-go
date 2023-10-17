@@ -77,7 +77,7 @@ func TestGetTrackingResults(t *testing.T) {
 		t.Error("Expected a response, got nil")
 	}
 
-	var _, ok = response.Data.(*[]Tracking)
+	var _, ok = response.Data.(*GetResults)
 	if response.Meta.Code == 200 && !ok {
 		t.Error("Structure type conversion failed")
 	}

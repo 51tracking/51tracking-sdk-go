@@ -73,13 +73,17 @@ func ExampleClient_GetTrackingResults() {
 
 	fmt.Println(result)
 
-	var trackings, ok = result.Data.(*[]tracking51.Tracking)
+	var getResults, ok = result.Data.(*tracking51.GetResults)
 	if !ok {
 		fmt.Println("Structure type conversion failed")
 		return
 	}
-	for _, item := range *trackings {
+	for _, item := range getResults.Success {
 		fmt.Printf("id:%s tracking_number: %s\n", item.Id, item.TrackingNumber)
+	}
+
+	for _, item := range getResults.Rejected {
+		fmt.Printf("tracking_number: %s rejectedCode: %d rejectedMessage: %s\n", item.TrackingNumber, item.RejectedCode, item.RejectedMessage)
 	}
 
 }

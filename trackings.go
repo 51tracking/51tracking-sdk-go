@@ -27,7 +27,6 @@ type CreateTrackingParams struct {
 	TrackingKey                string `json:"tracking_key"`
 	Language                   string `json:"language"`
 	Note                       string `json:"note"`
-	AutoCorrect                string `json:"auto_correct"`
 }
 
 type Tracking struct {
@@ -155,6 +154,17 @@ type GetTrackingResultsParams struct {
 	UpdatedDateMin  string `json:"updated_date_min" url:"updated_date_min"`
 }
 
+type GetResults struct {
+	Success  []Tracking     `json:"success"`
+	Rejected []RejectedItem `json:"rejected"`
+}
+
+type RejectedItem struct {
+	TrackingNumber  string `json:"tracking_number"`
+	RejectedCode    int    `json:"rejectedCode"`
+	RejectedMessage string `json:"rejectedMessage"`
+}
+
 type BatchResults struct {
 	Success []BatchItem `json:"success"`
 	Error   []BatchItem `json:"error"`
@@ -226,8 +236,8 @@ func (client *Client) CreateTracking(ctx context.Context, params CreateTrackingP
 }
 
 func (client *Client) GetTrackingResults(ctx context.Context, params GetTrackingResultsParams) (*Response, error) {
-	var trackings []Tracking
-	response, err := client.sendApiRequest(ctx, http.MethodGet, "/trackings/get", params, nil, &trackings)
+	var getResults GetResults
+	response, err := client.sendApiRequest(ctx, http.MethodGet, "/trackings/get", params, nil, &getResults)
 	return response, err
 }
 
