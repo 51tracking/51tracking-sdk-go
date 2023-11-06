@@ -2,7 +2,6 @@ package tracking51
 
 import (
 	"context"
-	"errors"
 	"net/http"
 )
 
@@ -20,21 +19,8 @@ type Courier struct {
 	CourierLogo            string      `json:"courier_logo"`
 }
 
-type DetectParams struct {
-	TrackingNumber string `json:"tracking_number"`
-}
-
 func (client *Client) GetAllCouriers(ctx context.Context) (*Response, error) {
 	var couriers []Courier
 	response, err := client.sendApiRequest(ctx, http.MethodGet, "/couriers/all", nil, nil, &couriers)
-	return response, err
-}
-
-func (client *Client) Detect(ctx context.Context, params DetectParams) (*Response, error) {
-	if params.TrackingNumber == "" {
-		return nil, errors.New(ErrMissingTrackingNumber)
-	}
-	var couriers []Courier
-	response, err := client.sendApiRequest(ctx, http.MethodPost, "/couriers/detect", nil, params, &couriers)
 	return response, err
 }

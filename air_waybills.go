@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"regexp"
 )
 
 type AirWaybillItem struct {
@@ -63,7 +64,14 @@ func (client *Client) CreateAnAirWayBill(ctx context.Context, params AirWaybillP
 	if params.AwbNumber == "" {
 		return nil, errors.New(ErrMissingAwbNumber)
 	}
-	if len(params.AwbNumber) != 12 {
+
+	regexPattern := `^\d{3}[ -]?(\d{8})$`
+	matched, err := regexp.MatchString(regexPattern, params.AwbNumber)
+	if err != nil {
+		return nil, err
+	}
+
+	if !matched {
 		return nil, errors.New(ErrInvalidAirWaybillFormat)
 	}
 	var airWaybillItem AirWaybillItem

@@ -18,14 +18,13 @@ func NewClient(apiKey string) (*Client, error) {
 		return nil, errors.New(ErrEmptyAPIKey)
 	}
 
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-		Transport: &http.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		},
-	}
 	return &Client{
-		apiKey:     apiKey,
-		httpClient: client,
+		apiKey: apiKey,
+		httpClient: &http.Client{
+			Timeout: 10 * time.Second,
+			Transport: &http.Transport{
+				TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+			},
+		},
 	}, nil
 }
