@@ -22,5 +22,9 @@ type Courier struct {
 func (client *Client) GetAllCouriers(ctx context.Context) (*Response, error) {
 	var couriers []Courier
 	response, err := client.sendApiRequest(ctx, http.MethodGet, "/couriers/all", nil, nil, &couriers)
-	return response, err
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
 }
