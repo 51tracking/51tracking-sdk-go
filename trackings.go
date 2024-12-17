@@ -15,6 +15,7 @@ type CreateTrackingParams struct {
 	CustomerName               string `json:"customer_name"`
 	CustomerEmail              string `json:"customer_email"`
 	CustomerSms                string `json:"customer_sms"`
+	RecipientPostcode          string `json:"recipient_postcode"`
 	Title                      string `json:"title"`
 	LogisticsChannel           string `json:"logistics_channel"`
 	OrderId                    string `json:"order_id"`
@@ -55,6 +56,7 @@ type Tracking struct {
 	CustomerName               string `json:"customer_name"`
 	CustomerEmail              string `json:"customer_email"`
 	CustomerSms                string `json:"customer_sms"`
+	RecipientPostcode          string `json:"recipient_postcode"`
 	OrderId                    string `json:"order_id"`
 	Title                      string `json:"title"`
 	LogisticsChannel           string `json:"logistics_channel"`
