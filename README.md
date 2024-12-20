@@ -162,10 +162,11 @@ zeroTime := currentTime.UTC()
 layout := "2006-01-02T15:04:05-07:00"
 formattedTime := zeroTime.Format(layout)
 params := tracking51.GetTrackingResultsParams{
-  TrackingNumbers: "92612903029511573030094531,9400111899562539126562",
-  CourierCode:     "usps",
-  CreatedDateMin: "2023-08-23T06:00:00+00:00",
-  CreatedDateMax: formattedTime,
+   TrackingNumbers: "92612903029511573030094531,9400111899562539126562",
+   CourierCode:     "usps",
+   CreatedDateMin: "2023-08-23T06:00:00+00:00",
+   CreatedDateMax: formattedTime,
+}
 
 result, err := cli.GetTrackingResults(context.Background(), params)
 if err != nil {
